@@ -16,7 +16,7 @@ class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(80), unique=True, nullable=False)
     password = db.Column(db.String(80), nullable=False)
-    role = db.Column(db.String(20), nullable=False)  # 'sk_council' or 'captain'
+    role = db.Column(db.String(20), nullable=False)
 
 class Project(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -29,17 +29,27 @@ class Project(db.Model):
 
 class Member(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(120), nullable=False)
+    last_name = db.Column(db.String(80))
+    first_name = db.Column(db.String(80))
+    middle_name = db.Column(db.String(80))
     age = db.Column(db.Integer)
-    address = db.Column(db.String(200))
+    birthday = db.Column(db.String(20))
+    sex = db.Column(db.String(10))
+    email = db.Column(db.String(120))
     contact = db.Column(db.String(20))
+    region = db.Column(db.String(80))
+    province = db.Column(db.String(80))
+    city = db.Column(db.String(80))
+    barangay = db.Column(db.String(80))
+    civil_status = db.Column(db.String(20))
+    youth_age_group = db.Column(db.String(20))
     status = db.Column(db.String(20), default='Active')
 
 class FinancialReport(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(120), nullable=False)
     amount = db.Column(db.Float, default=0.0)
-    report_type = db.Column(db.String(20))  # 'Income' or 'Expense'
+    report_type = db.Column(db.String(20))
     date = db.Column(db.String(20))
     description = db.Column(db.Text)
 
@@ -119,10 +129,20 @@ def add_member():
         return redirect(url_for('login'))
     if request.method == 'POST':
         member = Member(
-            name=request.form['name'],
+            last_name=request.form['last_name'],
+            first_name=request.form['first_name'],
+            middle_name=request.form['middle_name'],
             age=int(request.form['age']),
-            address=request.form['address'],
+            birthday=request.form['birthday'],
+            sex=request.form['sex'],
+            email=request.form['email'],
             contact=request.form['contact'],
+            region=request.form['region'],
+            province=request.form['province'],
+            city=request.form['city'],
+            barangay=request.form['barangay'],
+            civil_status=request.form['civil_status'],
+            youth_age_group=request.form['youth_age_group'],
             status=request.form['status']
         )
         db.session.add(member)
