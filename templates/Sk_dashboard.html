@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Barangay Captain Dashboard</title>
+    <title>SK Council Dashboard</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body { background-color: #f0f4f8; }
         .hero {
-            background: linear-gradient(135deg, #1a237e 0%, #b71c1c 60%, #f9a825 100%);
-            color: white;
-            padding: 24px 0;
-            margin-bottom: 30px;
+             background: linear-gradient(135deg, #1a237e 0%, #b71c1c 60%, #f9a825 100%);
+             color: white;
+             padding: 24px 0;
+             margin-bottom: 30px;
         }
         .hero img {
             width: 55px; height: 55px;
@@ -29,30 +29,33 @@
             padding: 20px;
             margin-bottom: 20px;
         }
-        .stat-card .number { font-size: 2rem; font-weight: 700; }
+        .stat-card .number {
+            font-size: 2rem;
+            font-weight: 700;
+        }
         .nav-tabs .nav-link.active {
             background-color: #1a5276;
             color: white;
             border-color: #1a5276;
         }
-        .nav-tabs .nav-link { color: #1a5276; font-weight: 500; }
+        .nav-tabs .nav-link {
+            color: #1a5276;
+            font-weight: 500;
+        }
         .table-card {
             border-radius: 12px;
             border: none;
             box-shadow: 0 2px 10px rgba(0,0,0,0.08);
         }
+        .btn-sk {
+            background-color: #1a5276;
+            color: white;
+            border: none;
+        }
+        .btn-sk:hover { background-color: #154360; color: white; }
         .badge-planned { background-color: #d4ac0d; }
         .badge-ongoing { background-color: #1e8449; }
         .badge-completed { background-color: #1a5276; }
-        .view-only-badge {
-            background-color: #f0f4f8;
-            color: #1a5276;
-            border: 1px solid #1a5276;
-            border-radius: 20px;
-            padding: 4px 12px;
-            font-size: 0.8rem;
-            font-weight: 600;
-        }
     </style>
 </head>
 <body>
@@ -63,12 +66,12 @@
             <div class="d-flex align-items-center gap-3">
                 <img src="/static/logo.jpg" alt="Logo">
                 <div>
-                    <h5 class="mb-0 fw-bold">Barangay Captain Dashboard</h5>
-                    <small>Barangay Miranda, Hinigaran — View Only</small>
+                    <h5 class="mb-0 fw-bold">SK Council Dashboard</h5>
+                    <small>Barangay Miranda, Hinigaran</small>
                 </div>
             </div>
             <div>
-                <span class="text-white me-3">👤 Barangay Captain</span>
+                <span class="text-white me-3">👤 SK Council</span>
                 <a href="/logout" class="btn btn-sm btn-outline-light">Logout</a>
             </div>
         </div>
@@ -76,35 +79,36 @@
 
     <div class="container">
 
-        <!-- View Only Notice -->
-        <div class="alert" style="background-color:#eaf4fb; border-left: 4px solid #1a5276; color:#1a5276;">
-            👁️ <strong>View Only Access</strong> — You can view all SK records but cannot make changes.
-        </div>
-
         <!-- Stats Row -->
         <div class="row mb-4">
-            <div class="col-6 col-md-4">
+            <div class="col-6 col-md-3">
                 <div class="stat-card" style="border-left: 4px solid #1a5276;">
                     <div class="number text-primary">{{ projects|length }}</div>
                     <small class="text-muted">📋 Total Projects</small>
                 </div>
             </div>
-            <div class="col-6 col-md-4">
+            <div class="col-6 col-md-3">
                 <div class="stat-card" style="border-left: 4px solid #1e8449;">
                     <div class="number text-success">{{ members|length }}</div>
                     <small class="text-muted">👥 Youth Members</small>
                 </div>
             </div>
-            <div class="col-6 col-md-4">
+            <div class="col-6 col-md-3">
                 <div class="stat-card" style="border-left: 4px solid #d4ac0d;">
                     <div class="number text-warning">{{ reports|length }}</div>
                     <small class="text-muted">💰 Financial Reports</small>
                 </div>
             </div>
+            <div class="col-6 col-md-3">
+                <div class="stat-card" style="border-left: 4px solid #c0392b;">
+                    <div class="number text-danger">{{ documents|length }}</div>
+                    <small class="text-muted">📄 Documents</small>
+                </div>
+            </div>
         </div>
 
         <!-- Tabs -->
-        <ul class="nav nav-tabs mb-4">
+        <ul class="nav nav-tabs mb-4" id="dashboardTabs">
             <li class="nav-item">
                 <a class="nav-link active" data-bs-toggle="tab" href="#projects">📋 Projects</a>
             </li>
@@ -114,6 +118,9 @@
             <li class="nav-item">
                 <a class="nav-link" data-bs-toggle="tab" href="#financial">💰 Financial Reports</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" data-bs-toggle="tab" href="#documents">📄 Documents</a>
+            </li>
         </ul>
 
         <div class="tab-content">
@@ -122,7 +129,7 @@
             <div class="tab-pane fade show active" id="projects">
                 <div class="d-flex justify-content-between align-items-center mb-3">
                     <h6 class="mb-0 fw-bold">SK Projects</h6>
-                    <span class="view-only-badge">👁️ View Only</span>
+                    <a href="/sk/add-project" class="btn btn-sm btn-sk">+ Add Project</a>
                 </div>
                 <div class="card table-card">
                     <div class="card-body p-0">
@@ -163,7 +170,7 @@
                             </table>
                         </div>
                         {% else %}
-                        <div class="text-center py-4 text-muted">No projects recorded yet.</div>
+                        <div class="text-center py-4 text-muted">No projects yet. Click "+ Add Project" to start.</div>
                         {% endif %}
                     </div>
                 </div>
@@ -173,7 +180,7 @@
             <div class="tab-pane fade" id="members">
                 <div class="d-flex justify-content-between align-items-center mb-3">
                     <h6 class="mb-0 fw-bold">Youth Members</h6>
-                    <span class="view-only-badge">👁️ View Only</span>
+                    <a href="/sk/add-member" class="btn btn-sm btn-sk">+ Add Member</a>
                 </div>
                 <div class="card table-card">
                     <div class="card-body p-0">
@@ -211,7 +218,7 @@
                             </table>
                         </div>
                         {% else %}
-                        <div class="text-center py-4 text-muted">No members recorded yet.</div>
+                        <div class="text-center py-4 text-muted">No members yet. Click "+ Add Member" to start.</div>
                         {% endif %}
                     </div>
                 </div>
@@ -221,7 +228,7 @@
             <div class="tab-pane fade" id="financial">
                 <div class="d-flex justify-content-between align-items-center mb-3">
                     <h6 class="mb-0 fw-bold">Financial Reports</h6>
-                    <span class="view-only-badge">👁️ View Only</span>
+                    <a href="/sk/add-report" class="btn btn-sm btn-sk">+ Add Report</a>
                 </div>
                 <div class="card table-card">
                     <div class="card-body p-0">
@@ -257,14 +264,28 @@
                             </table>
                         </div>
                         {% else %}
-                        <div class="text-center py-4 text-muted">No financial reports recorded yet.</div>
+                        <div class="text-center py-4 text-muted">No financial reports yet. Click "+ Add Report" to start.</div>
                         {% endif %}
                     </div>
                 </div>
             </div>
 
-        </div>
-    </div>
+            <!-- DOCUMENTS TAB -->
+            <div class="tab-pane fade" id="documents">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h6 class="mb-0 fw-bold">Documents</h6>
+                </div>
+                <div class="card table-card">
+                    <div class="card-body text-center py-5 text-muted">
+                        <h5>📄 Document Storage</h5>
+                        <p>Meeting minutes, resolutions, and official files will appear here.</p>
+                        <small>Feature coming soon.</small>
+                    </div>
+                </div>
+            </div>
+
+        </div><!-- end tab-content -->
+    </div><!-- end container -->
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>

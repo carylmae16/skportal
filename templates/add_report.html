@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add Project</title>
+    <title>Add Financial Report</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body { background-color: #f0f4f8; }
@@ -60,44 +60,37 @@
 
     <div class="container">
         <div class="card form-card">
-            <div class="card-header">📋 Add New Project</div>
+            <div class="card-header">💰 Add Financial Report</div>
             <div class="card-body p-4">
                 <form method="POST">
                     <div class="mb-3">
-                        <label class="form-label">Project Name</label>
-                        <input type="text" name="name" class="form-control"
-                               placeholder="Enter project name" required>
+                        <label class="form-label">Title</label>
+                        <input type="text" name="title" class="form-control"
+                               placeholder="e.g. SK Fund Release Q1 2024" required>
                     </div>
                     <div class="mb-3">
-                        <label class="form-label">Description</label>
-                        <textarea name="description" class="form-control" rows="3"
-                                  placeholder="Describe the project"></textarea>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Status</label>
-                        <select name="status" class="form-select" required>
-                            <option value="Planned">📋 Planned</option>
-                            <option value="Ongoing">🔄 Ongoing</option>
-                            <option value="Completed">✅ Completed</option>
+                        <label class="form-label">Type</label>
+                        <select name="report_type" class="form-select" required>
+                            <option value="Income">💚 Income</option>
+                            <option value="Expense">🔴 Expense</option>
                         </select>
                     </div>
                     <div class="mb-3">
-                        <label class="form-label">Budget (₱)</label>
-                        <input type="number" name="budget" class="form-control"
+                        <label class="form-label">Amount (₱)</label>
+                        <input type="number" name="amount" class="form-control"
                                placeholder="0.00" step="0.01" required>
                     </div>
-                    <div class="row">
-                        <div class="col-md-6 mb-3">
-                            <label class="form-label">Start Date</label>
-                            <input type="date" name="start_date" class="form-control" required>
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <label class="form-label">End Date</label>
-                            <input type="date" name="end_date" class="form-control" required>
-                        </div>
+                    <div class="mb-3">
+                        <label class="form-label">Date</label>
+                        <input type="date" name="date" class="form-control" required>
+                    </div>
+                    <div class="mb-4">
+                        <label class="form-label">Description</label>
+                        <textarea name="description" class="form-control" rows="3"
+                                  placeholder="Add details about this financial record"></textarea>
                     </div>
                     <div class="d-flex gap-2">
-                        <button type="submit" class="btn btn-sk px-4">Save Project</button>
+                        <button type="submit" class="btn btn-sk px-4">Save Report</button>
                         <a href="/sk" class="btn btn-outline-secondary px-4">Cancel</a>
                     </div>
                 </form>
