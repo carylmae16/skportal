@@ -166,9 +166,9 @@ def captain_dashboard():
 with app.app_context():
     db.create_all()
     if not User.query.filter_by(username='sk_council').first():
-        db.session.add(User(username='sk_council', password='sk2024', role='sk_council'))
+        db.session.add(User(username='sk_council', password='sk2023', role='sk_council'))
     if not User.query.filter_by(username='captain').first():
-        db.session.add(User(username='captain', password='captain2024', role='captain'))
+        db.session.add(User(username='captain', password='captain2023', role='captain'))
     db.session.commit()
 
 if __name__ == '__main__':
